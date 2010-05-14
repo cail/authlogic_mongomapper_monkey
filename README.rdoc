@@ -1,0 +1,55 @@
+= Authlogic+MongoMapper monkey
+
+This rails plugin is a set of patches both to authlogic and mongomapper to make them work together.
+
+Part of these patches is jnunemaker-validatable updates (required by authlogic)
+
+== Install
+
+    $ script/plugin install git://github.com/cail/authlogic_mongomapper_monkey.git
+
+== Usage
+
+Install and just follow authlogic guides for model and session definition.
+
+Of course, model should be defined as a MongoMapper::Document, all the attributes required by authlogic should
+be defined in mongomapper style, like:
+
+    key :name, String
+    key :email, String
+
+    key :crypted_password, String
+    key :password_salt, String
+    key :persistence_token, String
+    key :single_access_token, String
+    key :perishable_token, String
+
+    key :login_count, Integer, :default => 0, :null => false
+    key :failed_login_count, Integer, :default => 0, :null => false
+    key :last_request_at, Time
+    key :current_login_at, Time
+    key :last_login_at, Time
+    key :current_login_ip, String
+    key :last_login_ip, String
+
+    # created_at, updated_at, helpers
+    timestamps!
+
+Then, just do
+
+    acts_as_authentic
+
+
+= Resources
+
+* MongoMapper http://github.com/jnunemaker/mongomapper
+
+* Authlogic http://github.com/binarylogic/authlogic
+
+== Project Site
+
+* http://github.com/cail/authlogic_mongomapper_monkey
+
+== Credits
+
+Igor Russkih, released under the MIT license
