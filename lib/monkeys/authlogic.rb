@@ -21,6 +21,11 @@ module MongoMapper::Document::ClassMethods
       include  Authlogic::ActsAsAuthentic::SingleAccessToken
       include  Authlogic::ActsAsAuthentic::ValidationsScope
 
+      begin
+        include  AuthlogicOpenid::ActsAsAuthentic
+      rescue => e
+      end
+      
       acts_as_authentic
 
     end
@@ -28,3 +33,4 @@ module MongoMapper::Document::ClassMethods
 
 
 end
+
