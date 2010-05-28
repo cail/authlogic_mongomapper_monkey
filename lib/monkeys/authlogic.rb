@@ -34,3 +34,15 @@ module MongoMapper::Document::ClassMethods
 
 end
 
+
+# Bad authlogic interface! patching!
+module Authlogic::Session::UnauthorizedRecord
+  def credentials=(value)
+    super
+    values = value.is_a?(Array) ? value : [value]
+    if ![String, Symbol, Hash].find{|e| values.first.kind_of? e }
+#     !values.first.kind_of? String and !values.first.kind_of? Symbol and !values.first.kind_of? Hash
+      self.unauthorized_record = values.first
+    end
+  end
+end
