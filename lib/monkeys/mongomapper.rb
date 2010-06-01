@@ -22,6 +22,15 @@ module MongoMapper::Plugins::Rails::InstanceMethods
     false
   end
 end
+
+module MongoMapper::Plugins::Rails::ClassMethods
+  #
+  # ActiveRecord emulation for authlogic
+  #
+  def base_class
+    self
+  end
+end
       
 module MongoMapper::Plugins::Rails::ClassMethods
   #
