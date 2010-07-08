@@ -1,9 +1,12 @@
 
-module MongoMapper::Document::ClassMethods
+module MongoMapper::Plugins::Document::ClassMethods
 
   def acts_as_authentic
 
     class_eval do
+      
+      #patching mongomapper
+      plugin AuthlogicMonkeyPlugin
       #
       # authorization stuff
       #
@@ -41,7 +44,6 @@ module Authlogic::Session::UnauthorizedRecord
     super
     values = value.is_a?(Array) ? value : [value]
     if ![String, Symbol, Hash].find{|e| values.first.kind_of? e }
-#     !values.first.kind_of? String and !values.first.kind_of? Symbol and !values.first.kind_of? Hash
       self.unauthorized_record = values.first
     end
   end
